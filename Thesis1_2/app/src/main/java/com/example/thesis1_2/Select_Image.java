@@ -72,6 +72,8 @@ public class Select_Image extends AppCompatActivity {
                 drawable = (BitmapDrawable) img.getDrawable();
                 bitmap = drawable.getBitmap();
 
+                textView.setText("GrayScale");
+
                 imageString = getStringImage(bitmap);
 
                 //call my python script

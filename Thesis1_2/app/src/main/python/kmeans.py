@@ -26,16 +26,8 @@ def main(data):
     centers = km.cluster_centers_
     centers = np.array(centers,dtype='uint8')
 
-    i = 1
-    # Storing info in color array
-    colors = []
-
-    for each_col in centers:
-        i+=1
-        colors.append(each_col)
-        # Color Swatch
-        a = np.zeros((100,100,3),dtype='uint8')
-        a[:,:,:] = each_col
+    # Storing info in color list
+    colors = list(centers)
 
     new_img = np.zeros((im.shape[0]*im.shape[1],3),dtype='uint8')
     unique_pixels = np.zeros(dominant_colors)
@@ -45,16 +37,9 @@ def main(data):
         new_img[ix] = colors[km.labels_[ix].item()]
 
     new_img = new_img.reshape((original_shape))
-    
 
     #calculate percentage
-    sum = 0
-    for i in unique_pixels: 
-        sum+=i
-
-    hotspotPercentage = (np.min(unique_pixels)/np.sum(unique_pixels))*100
-    hotspotPercentage = format(hotspotPercentage,".5f")
-
+    hotspotPercentage = format((np.min(unique_pixels)/np.sum(unique_pixels))*100,".2f")
     
     # converting the image to bytes
     pil_im = Image.fromarray(new_img)
